@@ -1,0 +1,196 @@
+/**
+ * TCSS 305 Winter 2019
+ * 
+ * Assignment 2
+ */
+
+package model;
+
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.Objects;
+
+
+/**
+ * This class that will handle the information of each items..
+ * 
+ * @author Chinenye Ezenwoye chinenye@uw.edu
+ * 
+ * @version 1
+ *
+ */
+
+public final class Item {
+    
+    /**
+     * This is the constant field for the number formatting
+     */
+    private static final NumberFormat NF = NumberFormat.getCurrencyInstance(Locale.US);
+    
+    
+    /**
+     * This will store the name of the items
+     */
+    
+    private final String myName;
+    
+    /**
+     * This will store the price of the item.
+     */
+    private final BigDecimal myPrice;
+    
+    /**
+     * This will store the item quality of the item.
+     */
+    private final int myBulkQuanlity;
+    
+    /**
+     * This will store the item prices if its in Bulks.
+     */
+    private final BigDecimal myBulkPrice;
+    
+    
+    
+    /**
+     * This constructor will take the name 
+     * and the price of the item.
+     * 
+     * @param theName
+     * @param thePrice
+     */
+    public Item(final String theName, final BigDecimal thePrice) {
+        myName = theName;
+        myPrice = thePrice;
+        myBulkQuanlity = 0;
+        myBulkPrice = null;
+
+    }
+    
+    /**
+     * This constructor will take the name,
+     *  price, bulk quantity and the bulk price 
+     *  of the items in the cart.
+     *  
+     *  
+     * @param theName
+     * @param thePrice
+     * @param theBulkQuantity
+     * @param theBulkPrice
+     */
+    public Item(final String theName, final BigDecimal thePrice, final int theBulkQuantity,
+                final BigDecimal theBulkPrice) {
+        myName = theName;
+        myPrice = thePrice;
+        myBulkQuanlity = theBulkQuantity;
+        myBulkPrice = theBulkPrice;
+    }
+    
+    /**
+     * This will get the name of the item
+     * 
+     * @return
+     */
+    
+    public String getName() {
+        return myName;
+    }
+    
+    /**
+     * This will get the Price of the item.
+     * 
+     * @return 
+     */
+    public BigDecimal getPrice() {
+        
+        return myPrice;
+    }
+    
+    /**
+     * This will get the quantity of the bulk items.
+     * 
+     * @return
+     */
+    public int getBulkQuantity() {
+        
+        return myBulkQuanlity;
+    }
+    
+    /**
+     * This will get the price of the bulk item.
+     * 
+     * @return
+     */
+    public BigDecimal getBulkPrice() {
+        
+        return myBulkPrice;
+    }
+
+    
+    /*
+     * This will check is item has a quantity > 1 
+     * then it will return true for the price of the bulk items.
+     * if it is not bulk then return false.
+     * 
+     * @return  
+     */
+    public boolean isBulk() {
+        
+        if(myBulkQuanlity == 0) {
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Return the String that represents the items
+     * it will check if there is bulk item then return return 2 for 69.99
+     * if not return 39.99 for the item price
+     */
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder(128);
+        builder.append(myName);
+        builder.append(", ");
+        builder.append(NF.format(myPrice));
+        if(isBulk()) {
+            builder.append(" (");
+            builder.append(myBulkQuanlity);
+            builder.append(NF.format(myBulkPrice));
+            builder.append(")");
+        }
+        
+        return builder.toString();
+    }
+
+    
+    /**
+     * This will return true if the parameter
+     *of the item matches the name, price,
+     *bulk quantity and price.
+     *
+     */
+    @Override
+    public boolean equals(final Object theOther) {
+        boolean result = false;
+        if((theOther != null) && (theOther.getClass() == this.getClass())) {
+            final Item otherItem = (Item) theOther;
+            
+            result = Objects.equals(myPrice, otherItem.myPrice) 
+                     && Objects.equals(myBulkPrice, otherItem.myBulkPrice)
+                     && Objects.equals(myName, otherItem.myName)
+                     && (myBulkQuanlity == otherItem.myBulkQuanlity);
+        }
+        return result;
+    }
+    
+    /**
+     * This will return an Integer hash code for the item
+     */
+    @Override
+    public int hashCode() {
+        
+        return Objects.hash(myName, myPrice, myBulkQuanlity, myBulkPrice);
+    }
+
+}

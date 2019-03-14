@@ -1,0 +1,83 @@
+/**
+ * TCSS 305 Winter 2019
+ * 
+ * Assignment 2
+ */
+
+package model;
+
+/**
+ * This class that will handle the information 
+ * of each item in the order.
+ * 
+ * @author Chinenye Ezenwoye chinenye@uw.edu
+ * 
+ * @version 1
+ *
+ */
+
+public final class ItemOrder {
+    
+    
+    /**
+     * This will specify the item in the order.
+     */
+    private final Item myItem;
+    
+    /**
+     * This will give the quantity of items in the order.
+     */
+    private final int myQuantity;
+    
+    
+    
+    /**
+     * This constructor will take specific 
+     * items and quantity of the item.
+     * 
+     * 
+     * @param theItem
+     * @param theQuantity
+     */
+    public ItemOrder(final Item theItem, final int theQuantity) {
+        myItem = theItem;
+        myQuantity = theQuantity;
+
+    }
+    
+    /**
+     * This will get the items into the order.
+     * 
+     * @return
+     */
+    public Item getItem() {
+        
+        return myItem;
+    }
+    
+    /**
+     * This will get the quantity of the items
+     * into the order.
+     * 
+     * @return
+     */
+    public int getQuantity() {
+        
+        return myQuantity;
+    }
+    
+    /**
+     * This will return the the string for the items in the order.
+     * 
+     */
+    @Override
+    public String toString() {
+        
+        StringBuilder builder = new StringBuilder();
+        builder.append(myItem);
+        builder.append(", Quantity: ");
+        builder.append(myQuantity);
+        return builder.toString();
+    }
+
+}
